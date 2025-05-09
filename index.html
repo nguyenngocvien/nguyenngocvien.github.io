@@ -5,42 +5,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nguyen Ngoc Vien | Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background-color: #f9f9f9; color: #333; line-height: 1.6; }
-    header { background-color: #2d89ef; color: #fff; padding: 2rem 1rem; text-align: center; }
-    nav a { color: #fff; margin: 0 1rem; text-decoration: none; font-weight: bold; }
-    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
-    section { margin-bottom: 3rem; }
-    h2 { color: #2d89ef; margin-bottom: 1rem; }
-    ul { list-style-type: none; padding: 0; }
-    ul li { margin-bottom: 0.5rem; }
-    footer { text-align: center; padding: 2rem 1rem; background-color: #eee; color: #666; }
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.5rem; }
-      nav a { display: block; margin: 0.5rem 0; }
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body>
-  <header>
-    <h1>Nguyen Ngoc Vien</h1>
-    <p>DevOps | Backend Developer | BPM Enthusiast</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <header class="bg-blue-600 text-white py-12 text-center">
+    <img src="https://scontent.fsgn1-1.fna.fbcdn.net/v/t39.30808-6/458380324_2403119369897476_746221273451325288_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGsjSCNVq8DG4Oc9Fhb6gx_zIKlOkal8S_MgqU6RqXxL922TApX9H8PV9SgYLRCYurl4cw-mlADlg3AefIQiJRQ&_nc_ohc=9aMhqZKuvbQQ7kNvwFLwt8u&_nc_oc=AdlnLRXwQXC4Ytw6kI3EXNnm_4-Hlx97GuLlyqqm7aEXxvV9fDDU7RKTvCqtNgvMADs&_nc_zt=23&_nc_ht=scontent.fsgn1-1.fna&_nc_gid=QJ4fXvxoKnHualb5A3-94A&oh=00_AfJ0Vgzon_zFuJ0NSxmkQW_s-man-m6WMCd-EPleDJ6wJg&oe=682398BF" alt="Avatar" class="w-24 h-24 mx-auto rounded-full border-4 border-white mb-4" />
+    <h1 class="text-3xl font-bold">Nguyen Ngoc Vien</h1>
+    <p class="text-lg mt-2">DevOps | Backend Developer | BPM Developer</p>
+    <nav class="mt-4 space-x-6">
+      <a href="#about" class="hover:underline">About</a>
+      <a href="#skills" class="hover:underline">Skills</a>
+      <a href="#contact" class="hover:underline">Contact</a>
     </nav>
   </header>
-  <main class="container">
-    <section id="about">
-      <h2>About Me</h2>
-      <p>Hello! I'm Nguyen Ngoc Vien, a passionate software developer with experience in building backend services, working with BPM platforms like IBM BPM and Camunda, and deploying systems using Docker and CI/CD.</p>
+
+  <main class="max-w-4xl mx-auto px-4 py-10">
+    <section id="about" class="mb-16" data-aos="fade-up">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">About Me</h2>
+      <p class="text-gray-700">
+        Hello! I'm Nguyen Ngoc Vien, a passionate software developer with experience in building backend services,
+        working with BPM platforms like IBM BPM and Camunda, and deploying systems using Docker and CI/CD pipelines.
+      </p>
     </section>
-    <section id="skills">
-      <h2>Skills</h2>
-      <ul>
+
+    <section id="skills" class="mb-16" data-aos="fade-up">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">Skills</h2>
+      <ul class="list-disc list-inside text-gray-700 space-y-1">
         <li>Go, Python, JavaScript</li>
         <li>PostgreSQL, Redis, MongoDB</li>
         <li>Docker, GitHub Actions, GitLab CI/CD</li>
@@ -48,14 +40,21 @@
         <li>Vue.js, TailwindCSS</li>
       </ul>
     </section>
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Email: vien.dev@example.com</p>
-      <p>GitHub: <a href="https://github.com/nguyenngocvien" target="_blank">nguyenngocvien</a></p>
+
+    <section id="contact" data-aos="fade-up">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">Contact</h2>
+      <p class="text-gray-700">📧 Email: vien.nguyen.12067@gmail.com</p>
+      <p class="text-gray-700">💻 GitHub: <a href="https://github.com/nguyenngocvien" class="text-blue-500 hover:underline">nguyenngocvien</a></p>
     </section>
   </main>
-  <footer>
-    <p>&copy; 2025 Nguyen Ngoc Vien. All rights reserved.</p>
+
+  <footer class="text-center py-6 bg-white border-t text-sm text-gray-500">
+    &copy; 2025 Nguyen Ngoc Vien. All rights reserved.
   </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000 });
+  </script>
 </body>
 </html>
