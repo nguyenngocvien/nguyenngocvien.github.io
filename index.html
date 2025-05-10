@@ -1,60 +1,241 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nguyen Ngoc Vien | Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description"
+		content="Nguyen Ngoc Vien - Fullstack Developer Portfolio with expertise in IBM BPM, Java, Go, and System Integration.">
+	<title>Nguyen Ngoc Vien | Portfolio</title>
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<style>
+		html {
+			scroll-behavior: smooth;
+		}
+	</style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
 
-  <header class="bg-blue-600 text-white py-12 text-center">
-    <img src="https://scontent.fsgn1-1.fna.fbcdn.net/v/t39.30808-6/458380324_2403119369897476_746221273451325288_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGsjSCNVq8DG4Oc9Fhb6gx_zIKlOkal8S_MgqU6RqXxL922TApX9H8PV9SgYLRCYurl4cw-mlADlg3AefIQiJRQ&_nc_ohc=9aMhqZKuvbQQ7kNvwFLwt8u&_nc_oc=AdlnLRXwQXC4Ytw6kI3EXNnm_4-Hlx97GuLlyqqm7aEXxvV9fDDU7RKTvCqtNgvMADs&_nc_zt=23&_nc_ht=scontent.fsgn1-1.fna&_nc_gid=QJ4fXvxoKnHualb5A3-94A&oh=00_AfJ0Vgzon_zFuJ0NSxmkQW_s-man-m6WMCd-EPleDJ6wJg&oe=682398BF" alt="Avatar" class="w-24 h-24 mx-auto rounded-full border-4 border-white mb-4" />
-    <h1 class="text-3xl font-bold">Nguyen Ngoc Vien</h1>
-    <p class="text-lg mt-2">BPM Developer | Backend Developer | DevOps</p>
-    <nav class="mt-4 space-x-6">
-      <a href="#about" class="hover:underline">About</a>
-      <a href="#skills" class="hover:underline">Skills</a>
-      <a href="#contact" class="hover:underline">Contact</a>
-    </nav>
-  </header>
+<body class="bg-gradient-to-b from-white via-blue-50 to-white text-gray-800 font-sans scroll-smooth">
 
-  <main class="max-w-4xl mx-auto px-4 py-10">
-    <section id="about" class="mb-16" data-aos="fade-up">
-      <h2 class="text-2xl font-bold text-blue-600 mb-4">About Me</h2>
-      <p class="text-gray-700">
-        Hello! I'm Nguyen Ngoc Vien, a passionate software developer with experience in building backend services,
-        working with BPM platforms like IBM BPM and Camunda, and deploying systems using Docker and CI/CD pipelines.
-      </p>
-    </section>
+	<!-- Top Bar -->
+	<header class="bg-white shadow-md fixed w-full z-50">
+		<div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+			<h1 class="text-xl font-bold text-blue-600">Nguyen Ngoc Vien</h1>
+			<nav class="space-x-4 text-sm">
+				<a href="#about" class="hover:text-blue-500 transition duration-300">About</a>
+				<a href="#skills" class="hover:text-blue-500 transition duration-300">Skills</a>
+				<a href="#projects" class="hover:text-blue-500 transition duration-300">Projects</a>
+				<a href="#blogs" class="hover:text-blue-500 transition duration-300">Blog</a>
+				<a href="#contact" class="hover:text-blue-500 transition duration-300">Contact</a>
+			</nav>
+		</div>
+	</header>
 
-    <section id="skills" class="mb-16" data-aos="fade-up">
-      <h2 class="text-2xl font-bold text-blue-600 mb-4">Skills</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-1">
-        <li>Go, Python, JavaScript</li>
-        <li>PostgreSQL, Redis, MongoDB</li>
-        <li>Docker, GitHub Actions, GitLab CI/CD</li>
-        <li>IBM BPM, Camunda, FileNet</li>
-        <li>Vue.js, TailwindCSS</li>
-      </ul>
-    </section>
+	<main class="mx-auto">
 
-    <section id="contact" data-aos="fade-up">
-      <h2 class="text-2xl font-bold text-blue-600 mb-4">Contact</h2>
-      <p class="text-gray-700">📧 Email: vien.nguyen.12067@gmail.com</p>
-      <p class="text-gray-700">💻 GitHub: <a href="https://github.com/nguyenngocvien" class="text-blue-500 hover:underline">nguyenngocvien</a></p>
-    </section>
-  </main>
+		<!-- About -->
+		<section id="about" class="py-40 flex items-center bg-gradient-to-r from-blue-50 to-white"
+			data-aos="fade-up">
+			<div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center md:items-start gap-10"
+				data-aos="fade-zoom-in">
 
-  <footer class="text-center py-6 bg-white border-t text-sm text-gray-500">
-    &copy; 2025 Nguyen Ngoc Vien. All rights reserved.
-  </footer>
+				<!-- Avatar + Title -->
+				<div class="flex-shrink-0 text-center md:text-left">
+					<img src="https://scontent.fsgn1-1.fna.fbcdn.net/v/t39.30808-6/458380324_2403119369897476_746221273451325288_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGsjSCNVq8DG4Oc9Fhb6gx_zIKlOkal8S_MgqU6RqXxL922TApX9H8PV9SgYLRCYurl4cw-mlADlg3AefIQiJRQ&_nc_ohc=9aMhqZKuvbQQ7kNvwFLwt8u&_nc_oc=AdlnLRXwQXC4Ytw6kI3EXNnm_4-Hlx97GuLlyqqm7aEXxvV9fDDU7RKTvCqtNgvMADs&_nc_zt=23&_nc_ht=scontent.fsgn1-1.fna&_nc_gid=QJ4fXvxoKnHualb5A3-94A&oh=00_AfJ0Vgzon_zFuJ0NSxmkQW_s-man-m6WMCd-EPleDJ6wJg&oe=682398BF"
+						alt="Avatar"
+						class="w-40 h-40 rounded-full border-4 border-blue-600 shadow-lg mx-auto md:mx-0 mb-4" />
+					<h2 class="text-3xl font-extrabold text-blue-700 mb-1">Nguyen Ngoc Vien</h2>
+					<p class="text-gray-700 text-lg italic">Fullstack Developer</p>
+				</div>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 1000 });
-  </script>
+				<!-- Description -->
+				<div class="text-center md:text-left">
+					<h2 class="text-3xl font-bold text-blue-600 mb-4">About Me</h2>
+					<p class="text-lg text-gray-700 leading-relaxed">
+						I'm a backend engineer passionate about building robust and scalable server-side systems.
+						I specialize in implementing workflow automation using IBM BPM, and developing custom RPA
+						solutions
+						to streamline repetitive tasks. I also create productivity tools tailored for internal teams to
+						improve operational efficiency.
+					</p>
+					<p class="mt-4 text-lg text-gray-700 leading-relaxed">
+						My focus is on clean architecture, process automation, and delivering solutions that empower
+						organizations to scale with confidence.
+					</p>
+					<!-- Download CV Button -->
+					<a href="viennn_cv.pdf" download>
+						<button
+							class="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200">
+							Download CV
+						</button>
+					</a>
+				</div>
+
+			</div>
+		</section>
+
+		<!-- Skills -->
+		<section id="skills" class="py-20 bg-gray-50">
+			<div class="max-w-6xl mx-auto px-6 text-center" data-aos="fade-zoom-in">
+				<h2 class="text-3xl font-bold text-left text-blue-600 mb-10">Skills</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+					<!-- IBM BPM -->
+					<div class="bg-white p-6 rounded-lg shadow-xl transition transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-300 hover:bg-blue-50"
+						data-aos="fade-up">
+						<div class="flex items-center justify-center mb-4">
+							<i class="fas fa-cogs text-4xl text-blue-600 mr-3"></i>
+							<h3 class="text-2xl font-semibold text-blue-600">IBM BPM</h3>
+						</div>
+						<p class="text-lg text-gray-700 font-light">
+							I have extensive experience in designing, implementing, and automating workflows on IBM BPM
+							platform.
+							I help organizations streamline their processes for greater efficiency and automation.
+						</p>
+					</div>
+
+					<!-- System Integration -->
+					<div class="bg-white p-6 rounded-lg shadow-xl transition transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-300 hover:bg-blue-50"
+						data-aos="fade-up">
+						<div class="flex items-center justify-center mb-4">
+							<i class="fas fa-plug text-4xl text-blue-600 mr-3"></i>
+							<h3 class="text-2xl font-semibold text-blue-600">System Integration</h3>
+						</div>
+						<p class="text-lg text-gray-700 font-light">
+							Expertise in integrating various systems using REST APIs, SOAP, and messaging protocols,
+							ensuring seamless communication between applications.
+						</p>
+					</div>
+
+					<!-- Java -->
+					<div class="bg-white p-6 rounded-lg shadow-xl transition transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-300 hover:bg-blue-50"
+						data-aos="fade-up">
+						<div class="flex items-center justify-center mb-4">
+							<i class="fab fa-java text-4xl text-blue-600 mr-3"></i>
+							<h3 class="text-2xl font-semibold text-blue-600">Java</h3>
+						</div>
+						<p class="text-lg text-gray-700 font-light">
+							Experienced in building RESTful APIs and microservices using Spring Boot. Skilled in using
+							Spring Security, Spring Data JPA, and integrating with external systems and databases. I
+							develop scalable and maintainable backend systems.
+						</p>
+					</div>
+
+					<!-- Go Backend -->
+					<div class="bg-white p-6 rounded-lg shadow-xl transition transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-300 hover:bg-blue-50"
+						data-aos="fade-up">
+						<div class="flex items-center justify-center mb-4">
+							<i class="fa-brands fa-golang text-4xl text-blue-600 mr-3"></i>
+							<h3 class="text-2xl font-semibold text-blue-600">Go</h3>
+						</div>
+						<p class="text-lg text-gray-700 font-light">
+							Passionate about Go for building scalable and reliable backend services. My experience
+							includes developing APIs, managing databases, and integrating third-party services.
+						</p>
+					</div>
+
+					<!-- Database (Oracle & Postgres) -->
+					<div class="bg-white p-6 rounded-lg shadow-xl transition transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-300 hover:bg-blue-50"
+						data-aos="fade-up">
+						<div class="flex items-center justify-center mb-4">
+							<i class="fas fa-database text-4xl text-blue-600 mr-3"></i>
+							<h3 class="text-2xl font-semibold text-blue-600">Database</h3>
+						</div>
+						<p class="text-lg text-gray-700 font-light">
+							Skilled in working with Oracle and PostgreSQL databases, including database design,
+							optimization, and performance tuning.
+						</p>
+					</div>
+
+					<!-- Frontend -->
+					<div class="bg-white p-6 rounded-lg shadow-xl transition transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-300 hover:bg-blue-50"
+						data-aos="fade-up">
+						<div class="flex items-center justify-center mb-4">
+							<i class="fas fa-laptop-code text-4xl text-blue-600 mr-3"></i>
+							<h3 class="text-2xl font-semibold text-blue-600">Frontend</h3>
+						</div>
+						<p class="text-lg text-gray-700 font-light">
+							Experienced in building responsive web applications using HTML, CSS, JavaScript, and
+							frameworks like Vue.js and React.
+						</p>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- Projects -->
+		<section id="projects" class="py-20 bg-white">
+			<div class="max-w-6xl mx-auto px-6 text-center" data-aos="fade-zoom-in">
+				<h2 class="text-3xl font-bold text-left text-blue-600 mb-10">Projects</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+						<h3 class="text-xl font-semibold mb-2">Document Management with FileNet</h3>
+						<p class="text-gray-600">A full-stack project integrating IBM FileNet with a Vue + Go
+							frontend/backend system.</p>
+					</div>
+					<div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+						<h3 class="text-xl font-semibold mb-2">CI/CD Pipeline with Docker</h3>
+						<p class="text-gray-600">Implemented secure Docker-based CI/CD pipelines using GitHub Actions
+							and two Linux servers.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Blog -->
+		<section id="blogs" class="py-20 bg-blue-50">
+			<div class="max-w-6xl mx-auto px-6" data-aos="fade-zoom-in">
+				<h2 class="text-3xl font-bold text-left text-blue-600 mb-10">Blog</h2>
+				<ul class="space-y-6">
+					<li>
+						<a href="posts/how-to-change-password-smtp-postfix.html"
+							class="text-blue-700 text-lg font-semibold hover:underline">Hướng dẫn đổi mật khẩu trong
+							SMTP Postfix</a>
+						<p class="text-sm text-gray-600">Thay đổi mật khẩu và kiểm thử gửi email.</p>
+					</li>
+					<li>
+						<a href="posts/how-i-deployed-ibm-bpm.md"
+							class="text-blue-700 text-lg font-semibold hover:underline">How I Deployed IBM BPM on
+							Docker</a>
+						<p class="text-sm text-gray-600">Step-by-step guide to deploying IBM BPM environments with
+							Docker and GitHub Pages.</p>
+					</li>
+					<li>
+						<a href="posts/how-i-deployed-ibm-bpm.md"
+							class="text-blue-700 text-lg font-semibold hover:underline">Building a Vue + Go Task
+							Manager</a>
+						<p class="text-sm text-gray-600">A tutorial on building a BPM-style task manager using Camunda
+							and Vue.</p>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Contact -->
+		<section id="contact" class="py-20 bg-gray-100">
+			<div class="max-w-6xl mx-auto px-6" data-aos="fade-zoom-in">
+				<h2 class="text-3xl font-bold text-left text-blue-600 mb-10">Contact</h2>
+				<div class="text-center flex gap-8">
+					<p class="text-gray-700">📧 Email: vien.nguyen.12067@gmail.com</p>
+					<p class="text-gray-700">💻 GitHub: <a href="https://github.com/nguyenngocvien"
+							class="text-blue-500 hover:underline">nguyenngocvien</a></p>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<footer class="text-center py-6 bg-white border-t text-sm text-gray-500">
+		&copy; 2025 Nguyen Ngoc Vien. All rights reserved.
+	</footer>
+
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<script>
+		AOS.init({ duration: 1000 });
+	</script>
 </body>
+
 </html>
