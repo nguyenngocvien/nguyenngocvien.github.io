@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Post List</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+   </head>
+   <body class="bg-gray-50 text-gray-800">
+      <!-- Top Bar -->
+      <header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ open: false }">
+         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+               <!-- Avatar -->
+               <div class="flex items-center">
+                  <img src="https://scontent.fsgn1-1.fna.fbcdn.net/v/t39.30808-6/458380324_2403119369897476_746221273451325288_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGsjSCNVq8DG4Oc9Fhb6gx_zIKlOkal8S_MgqU6RqXxL922TApX9H8PV9SgYLRCYurl4cw-mlADlg3AefIQiJRQ&_nc_ohc=9aMhqZKuvbQQ7kNvwFLwt8u&_nc_oc=AdlnLRXwQXC4Ytw6kI3EXNnm_4-Hlx97GuLlyqqm7aEXxvV9fDDU7RKTvCqtNgvMADs&_nc_zt=23&_nc_ht=scontent.fsgn1-1.fna&_nc_gid=QJ4fXvxoKnHualb5A3-94A&oh=00_AfJ0Vgzon_zFuJ0NSxmkQW_s-man-m6WMCd-EPleDJ6wJg&oe=682398BF"
+                     alt="Avatar"
+                     class="w-10 h-10 rounded-full shadow-lg" />
+               </div>
+               <!-- Middle: Navigation Menu (hidden on small screens) -->
+               <nav class="hidden md:flex space-x-6">
+                  <a href="#post-list" class="text-gray-600 hover:text-blue-600 text-sm font-medium">Home</a>
+                  <a href="index.html" class="text-gray-600 hover:text-blue-600 text-sm font-medium">About</a>
+               </nav>
+               <!-- Right: Search + Hamburger -->
+               <div class="flex items-center space-x-4">
+                  <div class="hidden sm:block">
+                     <input type="text" placeholder="Search posts..." class="w-56 border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                  </div>
+                  <!-- Mobile menu icon -->
+                  <button @click="open = !open" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-blue-600 focus:outline-none">
+                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                     </svg>
+                  </button>
+               </div>
+            </div>
+            <!-- Mobile menu -->
+            <div class="md:hidden mt-2" x-show="open" x-transition>
+               <nav class="flex flex-col space-y-2 items-end">
+                  <a href="#post-list" class="text-gray-600 hover:text-blue-600 text-sm font-medium pl-4">Home</a>
+                  <a href="index.html" class="text-gray-600 hover:text-blue-600 text-sm font-medium pl-4">About</a>
+               </nav>
+            </div>
+         </div>
+      </header>
+      <!-- Main Content -->
+	  <main class="flex-grow pt-20 px-6 bg-white">
+		<article class="max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+		  
+		  <!-- Post Image -->
+		  <img src="https://source.unsplash.com/random/800x400?article" alt="Post Image" class="w-full h-56 object-cover">
+
+		  <!-- Post Details -->
+		  <div class="p-6">
+			<h2 class="text-3xl font-semibold text-gray-900 mb-4">Post Title</h2>
+			<p class="text-sm text-gray-500 mb-2">May 10, 2025 • Author: Admin</p>
+			<p class="text-gray-700 mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac gravida mi. Sed at lacinia dui. Phasellus ultricies sollicitudin quam, vel vehicula mi ullamcorper ac.</p>
+			
+			<!-- Post Content -->
+			<div class="text-gray-700 mb-6">
+			  <p class="mb-4">Here is the detailed content of the post. It can include text, images, links, and more.</p>
+			  <p class="mb-4">Suspendisse potenti. In hac habitasse platea dictumst. Vestibulum at erat sed elit vehicula vehicula. Aliquam at est tincidunt, tincidunt erat ac, tincidunt urna.</p>
+			  <p class="mb-4">Sed efficitur tincidunt dui, non consequat nisi cursus a. Etiam iaculis, tortor vel vestibulum suscipit, urna ipsum tempor orci, et hendrerit nunc justo in nunc.</p>
+			</div>
+
+			<!-- Back to Posts Button -->
+			<a href="#" class="text-blue-600 hover:underline">← Back to Posts</a>
+		  </div>
+		</article>
+	  </main>
+   </body>
+</html>

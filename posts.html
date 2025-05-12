@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Post List</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+   <!-- Top Bar -->
+   <header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ open: false }">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+         <div class="flex justify-between items-center h-16">
+            <!-- Avatar -->
+            <div class="flex items-center">
+               <img
+                  src="https://scontent.fsgn1-1.fna.fbcdn.net/v/t39.30808-6/458380324_2403119369897476_746221273451325288_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGsjSCNVq8DG4Oc9Fhb6gx_zIKlOkal8S_MgqU6RqXxL922TApX9H8PV9SgYLRCYurl4cw-mlADlg3AefIQiJRQ&_nc_ohc=9aMhqZKuvbQQ7kNvwFLwt8u&_nc_oc=AdlnLRXwQXC4Ytw6kI3EXNnm_4-Hlx97GuLlyqqm7aEXxvV9fDDU7RKTvCqtNgvMADs&_nc_zt=23&_nc_ht=scontent.fsgn1-1.fna&_nc_gid=QJ4fXvxoKnHualb5A3-94A&oh=00_AfJ0Vgzon_zFuJ0NSxmkQW_s-man-m6WMCd-EPleDJ6wJg&oe=682398BF"
+                  alt="Avatar" class="w-10 h-10 rounded-full shadow-lg" />
+            </div>
+            <!-- Middle: Navigation Menu (hidden on small screens) -->
+            <nav class="hidden md:flex space-x-6">
+               <a href="#post-list" class="text-gray-600 hover:text-blue-600 text-sm font-medium">Home</a>
+               <a href="index.html" class="text-gray-600 hover:text-blue-600 text-sm font-medium">About</a>
+            </nav>
+            <!-- Right: Search + Hamburger -->
+            <div class="flex items-center space-x-4">
+               <div class="hidden sm:block">
+                  <input type="text" placeholder="Search posts..."
+                     class="w-56 border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+               </div>
+               <!-- Mobile menu icon -->
+               <button @click="open = !open"
+                  class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-blue-600 focus:outline-none">
+                  <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+               </button>
+            </div>
+         </div>
+         <!-- Mobile menu -->
+         <div class="md:hidden mt-2" x-show="open" x-transition>
+            <nav class="flex flex-col space-y-2 items-end">
+               <a href="#post-list" class="text-gray-600 hover:text-blue-600 text-sm font-medium pl-4">Home</a>
+               <a href="index.html" class="text-gray-600 hover:text-blue-600 text-sm font-medium pl-4">About</a>
+            </nav>
+         </div>
+      </div>
+   </header>
+   <main id="post-list" class="max-w-3xl mx-auto py-10 px-4 space-y-6">
+      <article v-for="post in posts" :key="post.id"
+         class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all transform hover:scale-105 ease-in-out duration-300 flex flex-col sm:flex-row overflow-hidden animate-fade-up">
+         <img :src="post.image" alt="Post Image"
+            class="w-full sm:w-64 h-48 object-cover rounded-t-xl sm:rounded-l-xl" />
+         <div class="p-6 flex flex-col justify-between space-y-4">
+            <div>
+               <h2 class="text-2xl font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                  {{ post.title }}
+               </h2>
+               <p class="text-sm text-gray-500 mb-3">
+                  {{ post.date }} • Author: {{ post.author }}
+               </p>
+               <p class="text-gray-700 line-clamp-3">{{ post.summary }}</p>
+            </div>
+            <a :href="'post-detail.html?id=' + post.id"
+               class="mt-4 text-blue-600 hover:text-blue-800 hover:underline self-start transition-all">Read more →</a>
+         </div>
+      </article>
+   </main>
+   <script>
+      // Khởi tạo Vue instance
+      const app = Vue.createApp({
+         data() {
+            return {
+               // Mảng chứa dữ liệu bài viết
+               posts: [
+                  {
+                     id: 1,
+                     title: "Post Title 1",
+                     date: "May 10, 2025",
+                     author: "Admin",
+                     summary: "A short summary of the post content goes here. This helps users quickly understand what the post is about.",
+                     image: "https://source.unsplash.com/random/400x200?post"
+                  },
+                  {
+                     id: 2,
+                     title: "Post Title 2",
+                     date: "May 09, 2025",
+                     author: "User",
+                     summary: "Another post summary snippet. Displaying a brief description of the content to attract readers.",
+                     image: "https://source.unsplash.com/random/400x200?article"
+                  },
+                  {
+                     id: 3,
+                     title: "Post Title 3",
+                     date: "May 08, 2025",
+                     author: "Admin",
+                     summary: "Here is a third post, providing insights on various topics.",
+                     image: "https://source.unsplash.com/random/400x200?technology"
+                  },
+                  {
+                     id: 4,
+                     title: "Post Title 4",
+                     date: "May 07, 2025",
+                     author: "Admin",
+                     summary: "A fascinating post about current trends in tech and innovation.",
+                     image: "https://source.unsplash.com/random/400x200?business"
+                  },
+                  {
+                     id: 5,
+                     title: "Post Title 5",
+                     date: "May 06, 2025",
+                     author: "User",
+                     summary: "Exploring the nuances of digital marketing and its impact.",
+                     image: "https://source.unsplash.com/random/400x200?marketing"
+                  },
+                  {
+                     id: 6,
+                     title: "Post Title 6",
+                     date: "May 05, 2025",
+                     author: "User",
+                     summary: "A comprehensive guide to navigating modern UI/UX design.",
+                     image: "https://source.unsplash.com/random/400x200?design"
+                  },
+                  {
+                     id: 7,
+                     title: "Post Title 7",
+                     date: "May 04, 2025",
+                     author: "Admin",
+                     summary: "Discussing sustainable business practices for the future.",
+                     image: "https://source.unsplash.com/random/400x200?green"
+                  },
+                  {
+                     id: 8,
+                     title: "Post Title 8",
+                     date: "May 03, 2025",
+                     author: "Admin",
+                     summary: "Everything you need to know about cloud computing and its benefits.",
+                     image: "https://source.unsplash.com/random/400x200?cloud"
+                  },
+                  {
+                     id: 9,
+                     title: "Post Title 9",
+                     date: "May 02, 2025",
+                     author: "User",
+                     summary: "A post on the evolving role of artificial intelligence in business.",
+                     image: "https://source.unsplash.com/random/400x200?ai"
+                  },
+                  {
+                     id: 10,
+                     title: "Post Title 10",
+                     date: "May 01, 2025",
+                     author: "Admin",
+                     summary: "An introduction to full-stack development and its tools.",
+                     image: "https://source.unsplash.com/random/400x200?code"
+                  },
+                  {
+                     id: 11,
+                     title: "Post Title 11",
+                     date: "April 30, 2025",
+                     author: "Admin",
+                     summary: "Tech innovations in 2025: A glimpse into the future.",
+                     image: "https://source.unsplash.com/random/400x200?future"
+                  },
+                  {
+                     id: 12,
+                     title: "Post Title 12",
+                     date: "April 29, 2025",
+                     author: "User",
+                     summary: "A deep dive into the power of data analytics and its uses.",
+                     image: "https://source.unsplash.com/random/400x200?data"
+                  },
+                  {
+                     id: 13,
+                     title: "Post Title 13",
+                     date: "April 28, 2025",
+                     author: "User",
+                     summary: "How to build a successful social media strategy for your brand.",
+                     image: "https://source.unsplash.com/random/400x200?social"
+                  },
+                  {
+                     id: 14,
+                     title: "Post Title 14",
+                     date: "April 27, 2025",
+                     author: "Admin",
+                     summary: "Exploring modern data storage solutions for businesses.",
+                     image: "https://source.unsplash.com/random/400x200?storage"
+                  },
+                  {
+                     id: 15,
+                     title: "Post Title 15",
+                     date: "April 26, 2025",
+                     author: "User",
+                     summary: "The future of remote work and how businesses are adapting.",
+                     image: "https://source.unsplash.com/random/400x200?remote"
+                  },
+                  {
+                     id: 16,
+                     title: "Post Title 16",
+                     date: "April 25, 2025",
+                     author: "Admin",
+                     summary: "Exploring cybersecurity trends in 2025 and beyond.",
+                     image: "https://source.unsplash.com/random/400x200?cybersecurity"
+                  },
+                  {
+                     id: 17,
+                     title: "Post Title 17",
+                     date: "April 24, 2025",
+                     author: "User",
+                     summary: "A beginner's guide to learning blockchain technology.",
+                     image: "https://source.unsplash.com/random/400x200?blockchain"
+                  },
+                  {
+                     id: 18,
+                     title: "Post Title 18",
+                     date: "April 23, 2025",
+                     author: "Admin",
+                     summary: "How to create engaging content for your brand's online presence.",
+                     image: "https://source.unsplash.com/random/400x200?content"
+                  },
+                  {
+                     id: 19,
+                     title: "Post Title 19",
+                     date: "April 22, 2025",
+                     author: "User",
+                     summary: "The power of customer feedback and its impact on product development.",
+                     image: "https://source.unsplash.com/random/400x200?customer"
+                  },
+                  {
+                     id: 20,
+                     title: "Post Title 20",
+                     date: "April 21, 2025",
+                     author: "Admin",
+                     summary: "Breaking down the fundamentals of digital transformation in 2025.",
+                     image: "https://source.unsplash.com/random/400x200?transformation"
+                  }
+               ],
+            };
+         },
+      });
+
+      // Mount Vue vào phần tử có id "post-list"
+      app.mount("#post-list");
+   </script>
+
+   <!-- Add Tailwind CSS animations -->
+   <style>
+      @keyframes fade-up {
+         0% {
+            opacity: 0;
+            transform: translateY(20px);
+         }
+
+         100% {
+            opacity: 1;
+            transform: translateY(0);
+         }
+      }
+
+      /* Apply the fade-up animation */
+      .animate-fade-up {
+         animation: fade-up 0.6s ease-out;
+      }
+   </style>
+</body>
+
+</html>
