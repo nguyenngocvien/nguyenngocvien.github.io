@@ -1,0 +1,1233 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      🧱 Domain-Driven Design — Kiến trúc giúp phần mềm sống dai, sống khỏe
+    </title>
+    <style>
+      /* cspell:disable-file */
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 10px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .collection-content td {
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        padding-inline-start: 0;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      .page-description {
+        margin-bottom: 2em;
+      }
+
+      .simple-table {
+        margin-top: 1em;
+        font-size: 0.875rem;
+        empty-cells: show;
+      }
+      .simple-table td {
+        height: 29px;
+        min-width: 120px;
+      }
+
+      .simple-table th {
+        height: 29px;
+        min-width: 120px;
+      }
+
+      .simple-table-header-color {
+        background: rgb(247, 246, 243);
+        color: black;
+      }
+      .simple-table-header {
+        font-weight: 500;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .callout img.notion-static-icon {
+        width: 1em;
+        height: 1em;
+      }
+
+      .callout p {
+        margin: 0;
+      }
+
+      .callout h1,
+      .callout h2,
+      .callout h3 {
+        margin: 0 0 0.6rem;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        max-height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      blockquote.quote-large {
+        font-size: 1.25em;
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono",
+          "Liberation Mono", Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, ui-serif, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK JP";
+      }
+      .pdf:lang(zh-CN) .sans {
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC";
+      }
+      .pdf:lang(zh-TW) .sans {
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK TC";
+      }
+      .pdf:lang(ko-KR) .sans {
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK KR";
+      }
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
+          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK JP";
+      }
+      .pdf:lang(zh-CN) .code {
+        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
+          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC";
+      }
+      .pdf:lang(zh-TW) .code {
+        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
+          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK TC";
+      }
+      .pdf:lang(ko-KR) .code {
+        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
+          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK KR";
+      }
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+          "Noto Color Emoji", "Noto Serif CJK JP";
+      }
+      .pdf:lang(zh-CN) .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+          "Noto Color Emoji", "Noto Serif CJK SC";
+      }
+      .pdf:lang(zh-TW) .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+          "Noto Color Emoji", "Noto Serif CJK TC";
+      }
+      .pdf:lang(ko-KR) .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+          "Noto Color Emoji", "Noto Serif CJK KR";
+      }
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK JP";
+      }
+      .pdf:lang(zh-CN) .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC";
+      }
+      .pdf:lang(zh-TW) .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK TC";
+      }
+      .pdf:lang(ko-KR) .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK KR";
+      }
+      .highlight-default {
+        color: rgba(44, 44, 43, 1);
+      }
+      .highlight-gray {
+        color: rgba(125, 122, 117, 1);
+        fill: rgba(125, 122, 117, 1);
+      }
+      .highlight-brown {
+        color: rgba(159, 118, 90, 1);
+        fill: rgba(159, 118, 90, 1);
+      }
+      .highlight-orange {
+        color: rgba(210, 123, 45, 1);
+        fill: rgba(210, 123, 45, 1);
+      }
+      .highlight-yellow {
+        color: rgba(203, 148, 52, 1);
+        fill: rgba(203, 148, 52, 1);
+      }
+      .highlight-teal {
+        color: rgba(80, 148, 110, 1);
+        fill: rgba(80, 148, 110, 1);
+      }
+      .highlight-blue {
+        color: rgba(56, 125, 201, 1);
+        fill: rgba(56, 125, 201, 1);
+      }
+      .highlight-purple {
+        color: rgba(154, 107, 180, 1);
+        fill: rgba(154, 107, 180, 1);
+      }
+      .highlight-pink {
+        color: rgba(193, 76, 138, 1);
+        fill: rgba(193, 76, 138, 1);
+      }
+      .highlight-red {
+        color: rgba(207, 81, 72, 1);
+        fill: rgba(207, 81, 72, 1);
+      }
+      .highlight-default_background {
+        color: rgba(44, 44, 43, 1);
+      }
+      .highlight-gray_background {
+        background: rgba(42, 28, 0, 0.07);
+      }
+      .highlight-brown_background {
+        background: rgba(139, 46, 0, 0.086);
+      }
+      .highlight-orange_background {
+        background: rgba(224, 101, 1, 0.129);
+      }
+      .highlight-yellow_background {
+        background: rgba(211, 168, 0, 0.137);
+      }
+      .highlight-teal_background {
+        background: rgba(0, 100, 45, 0.09);
+      }
+      .highlight-blue_background {
+        background: rgba(0, 124, 215, 0.094);
+      }
+      .highlight-purple_background {
+        background: rgba(102, 0, 178, 0.078);
+      }
+      .highlight-pink_background {
+        background: rgba(197, 0, 93, 0.086);
+      }
+      .highlight-red_background {
+        background: rgba(223, 22, 0, 0.094);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(125, 122, 117, 1);
+        fill: rgba(125, 122, 117, 1);
+      }
+      .block-color-brown {
+        color: rgba(159, 118, 90, 1);
+        fill: rgba(159, 118, 90, 1);
+      }
+      .block-color-orange {
+        color: rgba(210, 123, 45, 1);
+        fill: rgba(210, 123, 45, 1);
+      }
+      .block-color-yellow {
+        color: rgba(203, 148, 52, 1);
+        fill: rgba(203, 148, 52, 1);
+      }
+      .block-color-teal {
+        color: rgba(80, 148, 110, 1);
+        fill: rgba(80, 148, 110, 1);
+      }
+      .block-color-blue {
+        color: rgba(56, 125, 201, 1);
+        fill: rgba(56, 125, 201, 1);
+      }
+      .block-color-purple {
+        color: rgba(154, 107, 180, 1);
+        fill: rgba(154, 107, 180, 1);
+      }
+      .block-color-pink {
+        color: rgba(193, 76, 138, 1);
+        fill: rgba(193, 76, 138, 1);
+      }
+      .block-color-red {
+        color: rgba(207, 81, 72, 1);
+        fill: rgba(207, 81, 72, 1);
+      }
+      .block-color-default_background {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray_background {
+        background: rgba(240, 239, 237, 1);
+      }
+      .block-color-brown_background {
+        background: rgba(245, 237, 233, 1);
+      }
+      .block-color-orange_background {
+        background: rgba(251, 235, 222, 1);
+      }
+      .block-color-yellow_background {
+        background: rgba(249, 243, 220, 1);
+      }
+      .block-color-teal_background {
+        background: rgba(232, 241, 236, 1);
+      }
+      .block-color-blue_background {
+        background: rgba(229, 242, 252, 1);
+      }
+      .block-color-purple_background {
+        background: rgba(243, 235, 249, 1);
+      }
+      .block-color-pink_background {
+        background: rgba(250, 233, 241, 1);
+      }
+      .block-color-red_background {
+        background: rgba(252, 233, 231, 1);
+      }
+      .select-value-color-default {
+        background-color: rgba(42, 28, 0, 0.07);
+      }
+      .select-value-color-gray {
+        background-color: rgba(28, 19, 1, 0.11);
+      }
+      .select-value-color-brown {
+        background-color: rgba(127, 51, 0, 0.156);
+      }
+      .select-value-color-orange {
+        background-color: rgba(196, 88, 0, 0.203);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(209, 156, 0, 0.282);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 96, 38, 0.156);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 118, 217, 0.203);
+      }
+      .select-value-color-purple {
+        background-color: rgba(92, 0, 163, 0.141);
+      }
+      .select-value-color-pink {
+        background-color: rgba(183, 0, 78, 0.152);
+      }
+      .select-value-color-red {
+        background-color: rgba(206, 24, 0, 0.164);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="2b646b39-e68d-8006-ab9d-d2c35f3bc587" class="page sans">
+      <header>
+        <h1 class="page-title">
+          🧱 Domain-Driven Design — Kiến trúc giúp phần mềm sống dai, sống khỏe
+        </h1>
+        <p class="page-description"></p>
+      </header>
+      <div class="page-body">
+        <hr id="2b646b39-e68d-80d6-b977-cf12dce58303" />
+        <p id="2b646b39-e68d-808b-8276-d0459cb957b0" class="">
+          Nếu anh em đã từng làm dự án vài năm, chắc chắn đã gặp cảm giác:
+        </p>
+        <blockquote id="2b646b39-e68d-805f-9c98-c0804df279b1" class="">
+          &quot;Code càng ngày càng rối như… spaghetti. Thêm một tính năng nhỏ
+          cũng như đụng vào tổ ong.”
+        </blockquote>
+        <p id="2b646b39-e68d-8075-9cb8-c6e70f5ae7bd" class="">
+          Đó là lúc chúng ta biết rằng hệ thống đang thiếu
+          <strong>ràng buộc kiến trúc</strong>, thiếu nơi để “đặt đúng thứ vào
+          đúng chỗ”.
+        </p>
+        <p id="2b646b39-e68d-80e3-aee8-fc9cdd0c1ba9" class="">
+          Và đó cũng là lúc <strong>Domain-Driven Design (DDD)</strong> xuất
+          hiện như một vị cứu tinh.
+        </p>
+        <p id="2b646b39-e68d-80b6-b858-e83b25548038" class="">
+          Trong bài viết này, mình sẽ chia sẻ DDD theo cách
+          <strong>đời thường, dễ tiêu hóa</strong>, không hàn lâm như sách dày
+          500 trang.
+        </p>
+        <hr id="2b646b39-e68d-8074-8918-c1904c7d2ab9" />
+        <h1 id="2b646b39-e68d-804a-a036-ff3d43e92876" class="">
+          🎯 1. Domain-Driven Design là gì?
+        </h1>
+        <p id="2b646b39-e68d-80f2-8a3e-c99ec9fda65b" class="">
+          DDD là
+          <strong
+            >phương pháp xây dựng phần mềm tập trung vào Domain — tức là nghiệp
+            vụ cốt lõi</strong
+          >.
+        </p>
+        <p id="2b646b39-e68d-807b-8d37-c757afe3fbd8" class="">Nói đơn giản:</p>
+        <blockquote id="2b646b39-e68d-80d0-82c3-f6f2feec0ff0" class="">
+          “Thay vì để kỹ thuật dẫn dắt dự án, DDD đặt Business làm trung tâm và
+          để code phản ánh đúng cách doanh nghiệp vận hành.”
+        </blockquote>
+        <p id="2b646b39-e68d-8079-9f1d-c830da5aa37c" class="">
+          DDD không phải framework, không phải thư viện.
+        </p>
+        <p id="2b646b39-e68d-80d1-9db5-c422b7becc41" class="">
+          Nó là
+          <strong
+            >triết lý + cách tổ chức code + ngôn ngữ chung giữa Dev &amp;
+            Business</strong
+          >.
+        </p>
+        <hr id="2b646b39-e68d-8029-b2d7-c514234c9f9c" />
+        <h1 id="2b646b39-e68d-80ec-8900-c99a99678787" class="">
+          🧩 2. Tại sao DDD lại quan trọng?
+        </h1>
+        <p id="2b646b39-e68d-8065-9752-e436bb79f124" class="">
+          Khi dự án phát triển vài năm, code thường sẽ:
+        </p>
+        <ul id="2b646b39-e68d-8040-9136-f9a6a3342591" class="bulleted-list">
+          <li style="list-style-type: disc">khó mở rộng</li>
+        </ul>
+        <ul id="2b646b39-e68d-80cb-9722-c8bc2b571a79" class="bulleted-list">
+          <li style="list-style-type: disc">khó bảo trì</li>
+        </ul>
+        <ul id="2b646b39-e68d-80e2-be49-e6e2551a821d" class="bulleted-list">
+          <li style="list-style-type: disc">dễ đụng chạm lẫn nhau</li>
+        </ul>
+        <ul id="2b646b39-e68d-8045-95ae-c4c0cc40bf8b" class="bulleted-list">
+          <li style="list-style-type: disc">bug xuất hiện đủ hướng</li>
+        </ul>
+        <p id="2b646b39-e68d-802d-a15c-e44a6a78ef7c" class="">
+          DDD giúp chúng ta
+          <strong>chia project thành các khu vực có ranh giới rõ ràng</strong>,
+          mỗi phần chỉ chịu trách nhiệm một nhiệm vụ duy nhất.
+        </p>
+        <p id="2b646b39-e68d-80e2-b2a3-dd488a43aaea" class="">
+          Khi cần mở rộng, chúng ta chỉ thay đổi phần liên quan, không phải
+          “phá” cả hệ thống.
+        </p>
+        <p id="2b646b39-e68d-809e-ac89-d15c407e99bc" class="">Kết quả:</p>
+        <p id="2b646b39-e68d-808d-834f-eb4cfc1450bf" class="">
+          ✔ Code sạch hơn
+        </p>
+        <p id="2b646b39-e68d-8002-b575-e49843e110a4" class="">
+          ✔ Team dễ onboard
+        </p>
+        <p id="2b646b39-e68d-80d5-9ea6-fb33189b0a26" class="">
+          ✔ Business thay đổi không còn là “ác mộng”
+        </p>
+        <p id="2b646b39-e68d-8003-8ec3-ecf71fa8f330" class="">
+          ✔ Giảm coupling – tăng cohesion
+        </p>
+        <p id="2b646b39-e68d-80ea-97c8-e02dfb151c4f" class="">
+          ✔ Là nền tảng chuẩn cho microservices
+        </p>
+        <hr id="2b646b39-e68d-80d6-b06e-de47ff365b14" />
+        <h1 id="2b646b39-e68d-802a-b191-e1dabcc58858" class="">
+          🧭 3. Tầng Domain trong DDD — “bộ não” của hệ thống
+        </h1>
+        <p id="2b646b39-e68d-8096-8793-cd292103e494" class="">
+          Nếu xem hệ thống như một cơ thể, thì
+          <strong>Domain là bộ não</strong>.
+        </p>
+        <p id="2b646b39-e68d-80af-a0a1-ff9d4bd5b5f5" class="">
+          Trong tầng này, chỉ chứa <strong>logic nghiệp vụ thuần</strong>.
+        </p>
+        <p id="2b646b39-e68d-80ba-8127-e1093aae7282" class="">
+          Không framework, không kết nối DB, không HTTP.
+        </p>
+        <p id="2b646b39-e68d-8079-8040-d7c3a764f51c" class="">
+          <strong>Domain gồm:</strong>
+        </p>
+        <ul id="2b646b39-e68d-8058-90cb-fc5323ae6cf3" class="bulleted-list">
+          <li style="list-style-type: disc">
+            <strong>Entities</strong> — đối tượng có danh tính
+          </li>
+        </ul>
+        <ul id="2b646b39-e68d-80fe-9640-d4be7f7c77ad" class="bulleted-list">
+          <li style="list-style-type: disc">
+            <strong>Value Objects</strong> — đối tượng so sánh theo giá trị
+          </li>
+        </ul>
+        <ul id="2b646b39-e68d-809f-bd75-f18b21eec8ae" class="bulleted-list">
+          <li style="list-style-type: disc">
+            <strong>Aggregates</strong> — nhóm entity hoạt động cùng nhau
+          </li>
+        </ul>
+        <ul id="2b646b39-e68d-80d5-ac1b-d0b9def4bd7b" class="bulleted-list">
+          <li style="list-style-type: disc">
+            <strong>Domain Events</strong> — sự kiện nghiệp vụ
+          </li>
+        </ul>
+        <ul id="2b646b39-e68d-8050-a39e-dda2532592a1" class="bulleted-list">
+          <li style="list-style-type: disc">
+            <strong>Domain Services</strong> — logic nghiệp vụ không thuộc
+            entity nào
+          </li>
+        </ul>
+        <ul id="2b646b39-e68d-8010-9ed4-dbe747b3d358" class="bulleted-list">
+          <li style="list-style-type: disc">
+            <strong>Repository Interfaces</strong> — hợp đồng để lấy dữ liệu
+          </li>
+        </ul>
+        <p id="2b646b39-e68d-801d-b535-f5d1e7a89701" class="">
+          Domain chính là thứ phân biệt một hệ thống phần mềm “nghiệp vụ phức
+          tạp” với “CRUD service”.
+        </p>
+        <hr id="2b646b39-e68d-8066-b6db-c573b4e78118" />
+        <h1 id="2b646b39-e68d-80d5-b7f8-ddadbff872f9" class="">
+          🔧 4. Tầng Application — Nơi orchestration diễn ra
+        </h1>
+        <p id="2b646b39-e68d-8041-a0ce-c063ccf5b06c" class="">
+          Nếu Domain là bộ não thì
+          <strong>Application là người điều phối</strong>.
+        </p>
+        <p id="2b646b39-e68d-802a-a8b1-ce47bac45fdd" class="">
+          Nó biết làm gì trước, làm gì sau, nhưng không biết làm
+          <em>như thế nào</em>.
+        </p>
+        <p id="2b646b39-e68d-803c-af15-df9e06299bfb" class="">
+          Ví dụ khi tạo đơn hàng:
+        </p>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+          integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+        ></script>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+          integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+        />
+        <pre
+          id="2b646b39-e68d-80c9-b647-d474b385cf8b"
+          class="code code-wrap"
+        ><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">CreateOrderCommandHandler:
+   1. Validate input
+   2. Gọi domain tạo Order
+   3. Lưu Order qua repository
+   4. Gửi event OrderCreated
+   5. Trả DTO cho controller
+</code></pre>
+        <p id="2b646b39-e68d-80f9-8ef6-d42e85c5d034" class="">
+          Application KHÔNG chứa:
+        </p>
+        <ul id="2b646b39-e68d-8063-93f1-f6cd40b3e5b6" class="bulleted-list">
+          <li style="list-style-type: disc">Business rule</li>
+        </ul>
+        <ul id="2b646b39-e68d-80c1-8e54-f4e53e32c3ea" class="bulleted-list">
+          <li style="list-style-type: disc">ORM code</li>
+        </ul>
+        <ul id="2b646b39-e68d-80df-9cbb-f1e8aa172b0d" class="bulleted-list">
+          <li style="list-style-type: disc">HTTP code</li>
+        </ul>
+        <p id="2b646b39-e68d-80b9-9a81-d9bfabe1f4ca" class="">
+          Application chính là nơi biến “nghiệp vụ thuần” thành “luồng xử lý
+          hoàn chỉnh”.
+        </p>
+        <hr id="2b646b39-e68d-8042-9fe0-c8ba20bb038e" />
+        <h1 id="2b646b39-e68d-8032-8961-f310fcc25372" class="">
+          🏗 5. Infrastructure — “cơ bắp” của hệ thống
+        </h1>
+        <p id="2b646b39-e68d-804b-ad2b-fbcb77d34d1a" class="">
+          Đây là nơi hiện thực hóa mọi kỹ thuật:
+        </p>
+        <ul id="2b646b39-e68d-804b-a5f3-dec89b50235c" class="bulleted-list">
+          <li style="list-style-type: disc">Database (SQL, MongoDB…)</li>
+        </ul>
+        <ul id="2b646b39-e68d-805a-aee1-e90c7154f643" class="bulleted-list">
+          <li style="list-style-type: disc">ORM (EF Core, JPA, TypeORM…)</li>
+        </ul>
+        <ul id="2b646b39-e68d-8091-9a72-dc23cdab0ee5" class="bulleted-list">
+          <li style="list-style-type: disc">Message queue (RabbitMQ, Kafka)</li>
+        </ul>
+        <ul id="2b646b39-e68d-808e-a9fc-f69fd96c68e5" class="bulleted-list">
+          <li style="list-style-type: disc">External API</li>
+        </ul>
+        <ul id="2b646b39-e68d-80d2-95ae-d04c8ffecba0" class="bulleted-list">
+          <li style="list-style-type: disc">File storage</li>
+        </ul>
+        <ul id="2b646b39-e68d-8072-ba3e-e701d137132d" class="bulleted-list">
+          <li style="list-style-type: disc">Email service</li>
+        </ul>
+        <p id="2b646b39-e68d-8006-ba66-c666231a2ec6" class="">
+          Infrastructure chỉ làm những việc “kỹ thuật”, không được chứa logic
+          nghiệp vụ.
+        </p>
+        <p id="2b646b39-e68d-801c-9238-ee9670a33b50" class="">
+          Và quan trọng nhất:
+        </p>
+        <blockquote id="2b646b39-e68d-804b-b213-f38a92048804" class="">
+          Infrastructure phụ thuộc Domain và Application — không bao giờ ngược
+          lại.
+        </blockquote>
+        <p id="2b646b39-e68d-8052-81eb-c52aac955fe1" class="">
+          Đây chính là nguyên lý của Clean Architecture &amp; Hexagonal
+          Architecture.
+        </p>
+        <hr id="2b646b39-e68d-801a-a4e6-e922c041a626" />
+        <h1 id="2b646b39-e68d-8041-a55f-c5318b7b0ada" class="">
+          🌐 6. API Layer — Controller, gRPC, GraphQL
+        </h1>
+        <p id="2b646b39-e68d-80e6-ba5d-e330d9225e15" class="">
+          Layer này nhận request từ bên ngoài → gọi Application → trả response.
+        </p>
+        <p id="2b646b39-e68d-80c2-8c14-e480f33ad957" class="">
+          Nó là <em>giao diện giao tiếp</em> chứ không chứa logic.
+        </p>
+        <p id="2b646b39-e68d-8052-af3e-f3b44787d315" class="">Trong DDD:</p>
+        <ul id="2b646b39-e68d-80ed-94bc-f99fba142add" class="bulleted-list">
+          <li style="list-style-type: disc">Controller càng mỏng càng tốt</li>
+        </ul>
+        <ul id="2b646b39-e68d-8065-9fea-d975cdf160d4" class="bulleted-list">
+          <li style="list-style-type: disc">Không permit business logic</li>
+        </ul>
+        <ul id="2b646b39-e68d-8061-808c-d35bff643626" class="bulleted-list">
+          <li style="list-style-type: disc">
+            Không validate phức tạp (để Application làm)
+          </li>
+        </ul>
+        <hr id="2b646b39-e68d-8024-963b-eb6e4ca68a6e" />
+        <h1 id="2b646b39-e68d-800f-a4c6-c8fd398e9470" class="">
+          🧳 7. Worker Layer — khi dự án cần job background
+        </h1>
+        <p id="2b646b39-e68d-8076-acef-ed55b36d4cc3" class="">
+          Nhiều hệ thống lớn cần xử lý:
+        </p>
+        <ul id="2b646b39-e68d-80be-ac74-f09c2d8d4cce" class="bulleted-list">
+          <li style="list-style-type: disc">Job async</li>
+        </ul>
+        <ul id="2b646b39-e68d-8028-b643-d5ff8d9f8f9a" class="bulleted-list">
+          <li style="list-style-type: disc">Task queue</li>
+        </ul>
+        <ul id="2b646b39-e68d-805f-b977-ea550163bee8" class="bulleted-list">
+          <li style="list-style-type: disc">Cronjob</li>
+        </ul>
+        <ul id="2b646b39-e68d-8026-8fcd-f58f2a82aac4" class="bulleted-list">
+          <li style="list-style-type: disc">Event-driven workflow</li>
+        </ul>
+        <p id="2b646b39-e68d-80dc-844d-d93898b32eb6" class="">
+          Worker là nơi chạy những thứ này.
+        </p>
+        <p id="2b646b39-e68d-80e0-8511-f789bbb71df8" class="">
+          DDD vẫn áp dụng bình thường:
+        </p>
+        <ul id="2b646b39-e68d-8095-936e-cfe260b89c82" class="bulleted-list">
+          <li style="list-style-type: disc">Worker gọi Application</li>
+        </ul>
+        <ul id="2b646b39-e68d-8004-be58-dfc7f9b35c35" class="bulleted-list">
+          <li style="list-style-type: disc">Application dùng Domain</li>
+        </ul>
+        <ul id="2b646b39-e68d-80ef-ab90-e332bd40faee" class="bulleted-list">
+          <li style="list-style-type: disc">Infrastructure thực hiện tác vụ</li>
+        </ul>
+        <ul id="2b646b39-e68d-80f5-9464-fc975f38cd9c" class="bulleted-list">
+          <li style="list-style-type: disc">
+            Worker không chứa logic nghiệp vụ
+          </li>
+        </ul>
+        <hr id="2b646b39-e68d-801a-a664-c0893a22206e" />
+        <h1 id="2b646b39-e68d-80d9-acc9-f7cf7e9e00c8" class="">
+          🧬 8. DDD không phải “kiến trúc cho người thích phức tạp”
+        </h1>
+        <p id="2b646b39-e68d-8085-bc5b-d1cfc31a9239" class="">
+          DDD không nhất thiết phức tạp.
+        </p>
+        <p id="2b646b39-e68d-8003-a22b-eb041d166db2" class="">
+          DDD tốt là <strong>DDD vừa đủ</strong>.
+        </p>
+        <p id="2b646b39-e68d-80ee-a7bd-f42df213fd4c" class="">
+          ✔ Rõ ràng khi domain phức tạp
+        </p>
+        <p id="2b646b39-e68d-809b-a092-cfe1cd01a16c" class="">
+          ✔ Không ép buộc nếu chỉ CRUD cơ bản
+        </p>
+        <p id="2b646b39-e68d-80f9-be6a-da57d8f8cc7a" class="">
+          ✔ Không cần 10 Layer rườm rà
+        </p>
+        <p id="2b646b39-e68d-8027-a92a-e63fdc02baf0" class="">
+          DDD giúp hệ thống <strong>giữ được trật tự</strong> khi:
+        </p>
+        <ul id="2b646b39-e68d-8030-80b7-c4ffd0f3fe09" class="bulleted-list">
+          <li style="list-style-type: disc">domain liên tục thay đổi</li>
+        </ul>
+        <ul id="2b646b39-e68d-80c0-b74b-d14bce56a791" class="bulleted-list">
+          <li style="list-style-type: disc">yêu cầu ngày càng nhiều</li>
+        </ul>
+        <ul id="2b646b39-e68d-80a3-ac8c-f1cafe8b0980" class="bulleted-list">
+          <li style="list-style-type: disc">team mở rộng</li>
+        </ul>
+        <ul id="2b646b39-e68d-80a6-98a4-e6ec5e1a8c8e" class="bulleted-list">
+          <li style="list-style-type: disc">dự án sống nhiều năm</li>
+        </ul>
+        <hr id="2b646b39-e68d-80e5-9dc2-ece01f846759" />
+        <h1 id="2b646b39-e68d-80a0-a0e5-c73d082fdc51" class="">
+          🚀 9. Khi nào nên dùng DDD?
+        </h1>
+        <p id="2b646b39-e68d-8020-ab32-e96b8e82f060" class="">
+          <strong>Nên dùng khi:</strong>
+        </p>
+        <ul id="2b646b39-e68d-80bf-905d-f42a198204dc" class="bulleted-list">
+          <li style="list-style-type: disc">
+            Hệ thống có quy trình nghiệp vụ phức tạp
+          </li>
+        </ul>
+        <ul id="2b646b39-e68d-8068-b154-db263b175e79" class="bulleted-list">
+          <li style="list-style-type: disc">Dự án dài hạn</li>
+        </ul>
+        <ul id="2b646b39-e68d-80aa-a218-dbd8b6102395" class="bulleted-list">
+          <li style="list-style-type: disc">Nhiều domain logic</li>
+        </ul>
+        <ul id="2b646b39-e68d-8019-991f-cf76a0ef3292" class="bulleted-list">
+          <li style="list-style-type: disc">Tối ưu maintainability</li>
+        </ul>
+        <ul id="2b646b39-e68d-808c-91e5-d234664205ce" class="bulleted-list">
+          <li style="list-style-type: disc">
+            Có định hướng microservices hoặc modular monolith
+          </li>
+        </ul>
+        <p id="2b646b39-e68d-8096-b5d9-c760eed62ced" class="">
+          <strong>Không nên dùng khi:</strong>
+        </p>
+        <ul id="2b646b39-e68d-807b-abfa-ed7d474f4d18" class="bulleted-list">
+          <li style="list-style-type: disc">Chỉ CRUD đơn giản</li>
+        </ul>
+        <ul id="2b646b39-e68d-808f-aebf-cf37d6eab6fc" class="bulleted-list">
+          <li style="list-style-type: disc">API read-only</li>
+        </ul>
+        <ul id="2b646b39-e68d-8042-bfb5-d9cd3655d7d7" class="bulleted-list">
+          <li style="list-style-type: disc">PoC nhanh 1–2 tuần</li>
+        </ul>
+        <ul id="2b646b39-e68d-80b2-b503-e0a4e85d5a49" class="bulleted-list">
+          <li style="list-style-type: disc">Startup MVP chưa rõ nghiệp vụ</li>
+        </ul>
+        <p id="2b646b39-e68d-8095-813f-cd221901b886" class="">
+          DDD không phải “kim bài miễn tử”, nhưng là “vũ khí mạnh” khi dùng đúng
+          nơi.
+        </p>
+        <hr id="2b646b39-e68d-80b7-a482-d864be542ae8" />
+        <h1 id="2b646b39-e68d-80eb-8d7a-c1d51a34e7bc" class="">
+          🔥 10. Kết luận
+        </h1>
+        <p id="2b646b39-e68d-80ce-a9c2-f5becfdb630f" class="">
+          Domain-Driven Design không phải là trào lưu nhất thời.
+        </p>
+        <p id="2b646b39-e68d-8090-94fb-d54411f220c4" class="">
+          Nó là triết lý đã được kiểm chứng qua hàng nghìn dự án enterprise.
+        </p>
+        <p id="2b646b39-e68d-801b-9192-d66fc0af1a5e" class="">
+          DDD giúp chúng ta:
+        </p>
+        <ul id="2b646b39-e68d-80bb-9e8b-d0085b56e866" class="bulleted-list">
+          <li style="list-style-type: disc">Hiểu sâu domain</li>
+        </ul>
+        <ul id="2b646b39-e68d-801a-b3c2-d9de956241e7" class="bulleted-list">
+          <li style="list-style-type: disc">Viết code bền vững</li>
+        </ul>
+        <ul id="2b646b39-e68d-80fc-b651-f3a5df8996b4" class="bulleted-list">
+          <li style="list-style-type: disc">Giảm sự phụ thuộc vào công nghệ</li>
+        </ul>
+        <ul id="2b646b39-e68d-8005-8a83-f34f0b97d5f0" class="bulleted-list">
+          <li style="list-style-type: disc">Dễ test, dễ mở rộng</li>
+        </ul>
+        <ul id="2b646b39-e68d-802d-8b4d-cce99c100b92" class="bulleted-list">
+          <li style="list-style-type: disc">
+            Giữ hệ thống sạch khi sống nhiều năm
+          </li>
+        </ul>
+        <p id="2b646b39-e68d-80f7-9f18-c87d4323e601" class="">
+          Nếu bạn đang xây một sản phẩm nghiêm túc và lâu dài —
+        </p>
+        <p id="2b646b39-e68d-803a-a04b-e6fc0cf090be" class="">
+          <strong>DDD là khoản đầu tư đáng giá nhất.</strong>
+        </p>
+        <hr id="2b646b39-e68d-80c7-a63b-dcd88600939b" />
+      </div>
+    </article>
+    <span class="sans" style="font-size: 14px; padding-top: 2em"></span>
+  </body>
+</html>
