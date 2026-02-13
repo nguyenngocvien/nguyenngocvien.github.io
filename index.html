@@ -284,51 +284,7 @@
       <section id="blogs" class="py-20 bg-blue-50">
         <div class="max-w-6xl mx-auto px-6" data-aos="fade-zoom-in">
           <h2 class="text-3xl font-bold text-left text-blue-600 mb-10">Blog</h2>
-          <ul class="space-y-6">
-            <li>
-              <a
-                href="posts/domain-driven-design-architecture-that-helps-software-live-long-and-healthy.html"
-                class="text-blue-700 text-lg font-semibold hover:underline"
-                >Domain-Driven Design — Kiến trúc giúp phần mềm sống dai, sống
-                khỏe
-              </a>
-              <p class="text-sm text-gray-600">
-                Kiến trúc dự án theo phương pháp xây dựng phần mềm tập trung
-              </p>
-            </li>
-            <li>
-              <a
-                href="posts/how-to-change-password-smtp-postfix.html"
-                class="text-blue-700 text-lg font-semibold hover:underline"
-                >Hướng dẫn đổi mật khẩu trong SMTP Postfix</a
-              >
-              <p class="text-sm text-gray-600">
-                Thay đổi mật khẩu và kiểm thử gửi email.
-              </p>
-            </li>
-            <li>
-              <a
-                href="posts/how-i-deployed-ibm-bpm.md"
-                class="text-blue-700 text-lg font-semibold hover:underline"
-                >How I Deployed IBM BPM on Docker</a
-              >
-              <p class="text-sm text-gray-600">
-                Step-by-step guide to deploying IBM BPM environments with Docker
-                and GitHub Pages.
-              </p>
-            </li>
-            <li>
-              <a
-                href="posts/how-i-deployed-ibm-bpm.md"
-                class="text-blue-700 text-lg font-semibold hover:underline"
-                >Building a Vue + Go Task Manager</a
-              >
-              <p class="text-sm text-gray-600">
-                A tutorial on building a BPM-style task manager using Camunda
-                and Vue.
-              </p>
-            </li>
-          </ul>
+          <ul id="blog-list" class="space-y-6"></ul>
         </div>
       </section>
 
@@ -384,6 +340,46 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init({ duration: 1000 });
+    </script>
+    <script>
+      fetch("posts.json")
+        .then((res) => res.json())
+        .then((posts) => {
+          const container = document.getElementById("blog-list");
+
+          posts.forEach((post) => {
+            const article = document.createElement("article");
+
+            article.className =
+              "bg-white rounded-md shadow-md flex flex-col sm:flex-row overflow-hidden";
+
+            article.innerHTML = `
+              <img src="${post.image}" 
+                    alt="Post Image"
+                    class="w-full sm:w-64 object-cover rounded-t-xl sm:rounded-l-xl" />
+      
+              <div class="p-6 flex flex-col justify-between space-y-4">
+                <div>
+                  <h2 class="text-2xl font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                    ${post.title}
+                  </h2>
+      
+                  <p class="text-gray-700 line-clamp-3">
+                    ${post.description}
+                  </p>
+                </div>
+      
+                <a href="${post.url}"
+                    class="text-blue-600 hover:text-blue-800 hover:underline self-start transition-all">
+                    Read more →
+                </a>
+              </div>
+            `;
+
+            container.appendChild(article);
+          });
+        })
+        .catch((error) => console.error("Error loading posts:", error));
     </script>
   </body>
 </html>
