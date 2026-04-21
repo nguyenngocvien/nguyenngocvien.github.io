@@ -1,12 +1,12 @@
 [
 	{
-        "title": "Domain Driven Design",
-        "url": "posts/domain-driven-design-architecture-that-helps-software-live-long-and-healthy.html",
-        "description": "Kiến trúc phần mềm tập trung vào domain."
-    },
-	{
         "title": "SMTP Postfix",
         "url": "posts/how-to-change-password-smtp-postfix.html",
         "description": "Hướng dẫn đổi mật khẩu SMTP."
+    },
+	{
+        "title": "Thiết lập Trust giữa các Server trong WebSphere bằng Retrieve from Port",
+        "url": "posts/setup-trust-server-by-retreive-from-port/index.html",
+        "description": "Chuẩn hóa các bước cấu hình tin cậy (trust) giữa các máy chủ sử dụng WebSphere Application Server (WAS) thông qua tính năng Retrieve from Port nhằm đảm bảo kết nối bảo mật SSL/TLS giữa các hệ thống."
     }
 ]
