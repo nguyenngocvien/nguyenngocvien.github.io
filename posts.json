@@ -2,11 +2,16 @@
 	{
         "title": "SMTP Postfix",
         "url": "posts/how-to-change-password-smtp-postfix.html",
-        "description": "Hướng dẫn đổi mật khẩu SMTP."
+        "description": "HÆ°á»›ng dáº«n Ä‘á»•i máº­t kháº©u SMTP."
     },
 	{
-        "title": "Thiết lập Trust giữa các Server trong WebSphere bằng Retrieve from Port",
+        "title": "Thiáº¿t láº­p Trust giá»¯a cÃ¡c Server trong WebSphere báº±ng Retrieve from Port",
         "url": "posts/setup-trust-server-by-retreive-from-port/index.html",
-        "description": "Chuẩn hóa các bước cấu hình tin cậy (trust) giữa các máy chủ sử dụng WebSphere Application Server (WAS) thông qua tính năng Retrieve from Port nhằm đảm bảo kết nối bảo mật SSL/TLS giữa các hệ thống."
+        "description": "Chuáº©n hÃ³a cÃ¡c bÆ°á»›c cáº¥u hÃ¬nh tin cáº­y (trust) giá»¯a cÃ¡c mÃ¡y chá»§ sá»­ dá»¥ng WebSphere Application Server (WAS) thÃ´ng qua tÃ­nh nÄƒng Retrieve from Port nháº±m Ä‘áº£m báº£o káº¿t ná»‘i báº£o má­t SSL/TLS giá»¯a cÃ¡c há»‡ thá»‘ng."
+    },
+	{
+        "title": "CI/CD with Docker Hub and ArgoCD",
+        "url": "posts/ci-cd-dockerhub-argocd-blog.html",
+        "description": "A guide to building a GitOps-based CI/CD pipeline with Docker Hub and ArgoCD."
     }
 ]
