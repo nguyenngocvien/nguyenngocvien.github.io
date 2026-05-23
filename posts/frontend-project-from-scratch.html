@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frontend React Architecture with OpenAPI and Microservices</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.8;
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px;
+      background:
+        radial-gradient(circle at top, rgba(59, 130, 246, 0.16), transparent 28%),
+        radial-gradient(circle at right, rgba(14, 165, 233, 0.1), transparent 24%),
+        linear-gradient(180deg, #050816 0%, #0b1020 100%);
+      color: #e2e8f0;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      border-bottom: 4px solid #38bdf8;
+      padding-bottom: 12px;
+      color: #f8fafc;
+    }
+
+    h2 {
+      margin-top: 40px;
+      color: #f8fafc;
+    }
+
+    h3 {
+      margin-top: 24px;
+      color: #f8fafc;
+    }
+
+    p,
+    li,
+    ol,
+    ul,
+    table {
+      color: #cbd5e1;
+    }
+
+    .card {
+      background: rgba(10, 15, 28, 0.82);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      padding: 30px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+    }
+
+    .note {
+      background: rgba(8, 47, 73, 0.72);
+      border-left: 6px solid #38bdf8;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 20px;
+      color: #dbeafe;
+    }
+
+    pre {
+      background: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: Consolas, monospace;
+      color: #93c5fd;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      padding: 14px;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(30, 41, 59, 0.8);
+      color: #f8fafc;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      color: #94a3b8;
+    }
+
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .tag {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(8, 47, 73, 0.72);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #dbeafe;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Frontend React Architecture with OpenAPI and Microservices</h1>
+
+<div class="card">
+  <h2>Overview</h2>
+
+  <p>
+    This document describes a practical frontend architecture for React applications
+    when backend microservices and OpenAPI specifications already exist.
+  </p>
+
+  <p>
+    The architecture focuses on scalability, typed API integration,
+    CI/CD readiness, Kubernetes deployment, and enterprise-grade maintainability.
+  </p>
+
+  <div class="tag-group">
+    <div class="tag">React</div>
+    <div class="tag">TypeScript</div>
+    <div class="tag">OpenAPI</div>
+    <div class="tag">Orval</div>
+    <div class="tag">React Query</div>
+    <div class="tag">Zustand</div>
+    <div class="tag">Keycloak</div>
+    <div class="tag">Kubernetes</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>1. Goals</h2>
+
+  <ul>
+    <li>Frontend typed completely using TypeScript</li>
+    <li>Automatically generate API clients from OpenAPI</li>
+    <li>Reduce handwritten API logic</li>
+    <li>Synchronize frontend/backend contracts</li>
+    <li>Support scalable microservice architectures</li>
+    <li>Be compatible with CI/CD and Kubernetes deployment</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>2. System Architecture</h2>
+
+  <h3>High-level Architecture</h3>
+
+  <pre><code>+---------------------+
+|     React Frontend  |
++----------+----------+
+           |
+           v
++---------------------+
+|     API Gateway     |
++----------+----------+
+           |
+  +--------+--------+--------+--------+
+  |                 |                 |
+  v                 v                 v
+Identity       Workflow         Document
+ Service         Service          Service</code></pre>
+
+  <div class="note">
+    Frontend applications should communicate only with the API Gateway.
+    Frontend must not directly call downstream microservices.
+  </div>
+</div>
+
+<div class="card">
+  <h2>3. Recommended Frontend Stack</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Technology</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Framework</td>
+        <td>React</td>
+      </tr>
+
+      <tr>
+        <td>Build Tool</td>
+        <td>Vite</td>
+      </tr>
+
+      <tr>
+        <td>Language</td>
+        <td>TypeScript</td>
+      </tr>
+
+      <tr>
+        <td>API Client</td>
+        <td>Orval</td>
+      </tr>
+
+      <tr>
+        <td>HTTP Client</td>
+        <td>Axios</td>
+      </tr>
+
+      <tr>
+        <td>Server State</td>
+        <td>React Query</td>
+      </tr>
+
+      <tr>
+        <td>Client State</td>
+        <td>Zustand</td>
+      </tr>
+
+      <tr>
+        <td>Routing</td>
+        <td>React Router</td>
+      </tr>
+
+      <tr>
+        <td>Forms</td>
+        <td>React Hook Form</td>
+      </tr>
+
+      <tr>
+        <td>Validation</td>
+        <td>Zod</td>
+      </tr>
+
+      <tr>
+        <td>Authentication</td>
+        <td>Keycloak JS / oidc-client-ts</td>
+      </tr>
+
+      <tr>
+        <td>UI Framework</td>
+        <td>MUI / Ant Design</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>4. Create React Project</h2>
+
+  <pre><code>npm create vite@latest frontend-app -- --template react-ts
+
+cd frontend-app
+
+npm install
+
+npm install react-router-dom
+npm install axios
+npm install @tanstack/react-query
+npm install zustand
+npm install react-hook-form
+npm install zod
+npm install @hookform/resolvers
+npm install orval</code></pre>
+
+  <div class="note">
+    Vite is recommended because it provides significantly faster startup and build performance compared to older tooling.
+  </div>
+</div>
+
+<div class="card">
+  <h2>5. Frontend Principles</h2>
+
+  <h3>5.1 Frontend must go through API Gateway</h3>
+
+  <pre><code>GOOD
+http://gateway:8080/identity/users
+
+BAD
+http://identity-service:8081/users</code></pre>
+
+  <p>Benefits:</p>
+
+  <ul>
+    <li>Centralized authentication</li>
+    <li>Centralized logging</li>
+    <li>Centralized routing</li>
+    <li>Easier Kubernetes scaling</li>
+    <li>Better security control</li>
+  </ul>
+
+  <h3>5.2 Do not handwrite API clients</h3>
+
+  <p>
+    API clients should be generated directly from OpenAPI specifications.
+  </p>
+
+  <div class="note">
+    Recommended tool:
+    <strong>Orval</strong>
+  </div>
+</div>
+
+<div class="card">
+  <h2>6. OpenAPI Strategy</h2>
+
+  <h3>6.1 Backend exposes OpenAPI</h3>
+
+  <pre><code>springdoc:
+  api-docs:
+    path: /v3/api-docs</code></pre>
+
+  <h3>6.2 API Gateway aggregates Swagger documents</h3>
+
+  <pre><code>springdoc:
+  swagger-ui:
+    urls:
+      - name: Identity Service
+        url: /identity/v3/api-docs
+
+      - name: Workflow Service
+        url: /workflow/v3/api-docs
+
+      - name: Document Service
+        url: /document/v3/api-docs</code></pre>
+
+  <h3>6.3 Store OpenAPI locally</h3>
+
+  <pre><code>download swagger json
+-> store locally
+-> generate API client</code></pre>
+
+  <div class="note">
+    Frontend CI/CD pipelines should not depend on live backend runtime availability.
+  </div>
+</div>
+
+<div class="card">
+  <h2>7. OpenAPI Project Structure</h2>
+
+  <pre><code>openapi/
+├── identity/
+│   └── openapi.json
+├── workflow/
+│   └── openapi.json
+├── document/
+│   └── openapi.json
+└── connector/
+    └── openapi.json</code></pre>
+</div>
+
+<div class="card">
+  <h2>8. Orval Configuration</h2>
+
+  <h3>8.1 Install Orval</h3>
+
+  <pre><code>npm install orval axios</code></pre>
+
+  <h3>8.2 Create Orval Configuration</h3>
+
+  <pre><code>module.exports = {
+  identity: {
+    input: './openapi/identity/openapi.json',
+
+    output: {
+      target: './src/api/identity/index.ts',
+      client: 'axios',
+    },
+  },
+
+  workflow: {
+    input: './openapi/workflow/openapi.json',
+
+    output: {
+      target: './src/api/workflow/index.ts',
+      client: 'axios',
+    },
+  },
+
+  document: {
+    input: './openapi/document/openapi.json',
+
+    output: {
+      target: './src/api/document/index.ts',
+      client: 'axios',
+    },
+  },
+};</code></pre>
+
+  <h3>8.3 Generate API Client</h3>
+
+  <pre><code>npx orval --config orval.config.cjs</code></pre>
+
+  <h3>8.4 Generated API Result</h3>
+
+  <pre><code>getUsers()
+createWorkflow()
+uploadDocument()</code></pre>
+
+  <pre><code>type UserDto
+type WorkflowDto
+type UploadResponse</code></pre>
+</div>
+
+<div class="card">
+  <h2>9. HTTP Layer</h2>
+
+  <h3>9.1 Axios Instance</h3>
+
+  <pre><code>import axios from 'axios';
+
+export const http = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  timeout: 30000,
+});</code></pre>
+
+  <h3>9.2 JWT Request Interceptor</h3>
+
+  <pre><code>http.interceptors.request.use((config) => {
+  const token = localStorage.getItem('access_token');
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});</code></pre>
+
+  <h3>9.3 Error Interceptor</h3>
+
+  <pre><code>http.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.clear();
+      window.location.href = '/login';
+    }
+
+    return Promise.reject(error);
+  }
+);</code></pre>
+</div>
+
+<div class="card">
+  <h2>10. Orval Mutator</h2>
+
+  <pre><code>import { http } from './http';
+
+export const customInstance = async &lt;T&gt;(
+  config: any
+): Promise&lt;T&gt; => {
+  const response = await http(config);
+
+  return response.data;
+};</code></pre>
+
+  <h3>Update Orval Configuration</h3>
+
+  <pre><code>override: {
+  mutator: {
+    path: './src/lib/orval.ts',
+    name: 'customInstance',
+  },
+},</code></pre>
+</div>
+
+<div class="card">
+  <h2>11. Authentication Architecture</h2>
+
+  <h3>Authentication Flow</h3>
+
+  <pre><code>React
+   -> Keycloak Login
+       -> access_token
+           -> API Gateway
+               -> downstream services</code></pre>
+
+  <h3>Detailed Login Flow</h3>
+
+  <pre><code>1. User opens frontend
+2. Redirect to Keycloak
+3. User logs in
+4. Receive access token
+5. Store token
+6. Attach Bearer token to API requests
+7. Gateway validates JWT
+8. Gateway forwards request to services</code></pre>
+</div>
+
+<div class="card">
+  <h2>12. React Query</h2>
+
+  <h3>Installation</h3>
+
+  <pre><code>npm install @tanstack/react-query</code></pre>
+
+  <h3>Setup</h3>
+
+  <pre><code>const queryClient = new QueryClient();
+
+&lt;QueryClientProvider client={queryClient}&gt;
+  &lt;App /&gt;
+&lt;/QueryClientProvider&gt;</code></pre>
+
+  <h3>Benefits</h3>
+
+  <ul>
+    <li>Caching</li>
+    <li>Automatic refetch</li>
+    <li>Loading state handling</li>
+    <li>Retry support</li>
+    <li>Pagination</li>
+    <li>Optimistic update</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>13. State Management</h2>
+
+  <h3>Recommended Tool</h3>
+
+  <pre><code>Zustand</code></pre>
+
+  <h3>Use Zustand for</h3>
+
+  <ul>
+    <li>Authentication state</li>
+    <li>Sidebar state</li>
+    <li>Theme state</li>
+    <li>Local UI state</li>
+  </ul>
+
+  <h3>Do NOT use Zustand for</h3>
+
+  <pre><code>server state</code></pre>
+
+  <div class="note">
+    Server state should be managed using React Query.
+  </div>
+</div>
+
+<div class="card">
+  <h2>14. Routing Architecture</h2>
+
+  <h3>Recommended Structure</h3>
+
+  <pre><code>src/pages/
+├── auth/
+├── dashboard/
+├── workflow/
+├── document/
+└── admin/</code></pre>
+
+  <h3>Protected Route Example</h3>
+
+  <pre><code>&lt;ProtectedRoute&gt;
+  &lt;Dashboard /&gt;
+&lt;/ProtectedRoute&gt;</code></pre>
+</div>
+
+<div class="card">
+  <h2>15. Feature-based Architecture</h2>
+
+  <h3>Recommended Structure</h3>
+
+  <pre><code>src/
+├── api/
+├── features/
+├── pages/
+├── layouts/
+├── hooks/
+├── components/
+├── store/
+└── lib/</code></pre>
+
+  <h3>Feature Structure</h3>
+
+  <pre><code>features/
+└── workflow/
+    ├── components/
+    ├── hooks/
+    ├── pages/
+    ├── store/
+    └── utils/</code></pre>
+</div>
+
+<div class="card">
+  <h2>16. Environment Variables</h2>
+
+  <h3>Local Development</h3>
+
+  <pre><code>VITE_API_URL=http://localhost:8080
+VITE_KEYCLOAK_URL=http://localhost:9090</code></pre>
+
+  <h3>Production</h3>
+
+  <pre><code>VITE_API_URL=https://api.company.com</code></pre>
+</div>
+
+<div class="card">
+  <h2>17. Docker Deployment</h2>
+
+  <h3>Dockerfile</h3>
+
+  <pre><code>FROM node:22-alpine AS build
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html</code></pre>
+
+  <h3>Nginx SPA Configuration</h3>
+
+  <pre><code>location / {
+  try_files $uri /index.html;
+}</code></pre>
+</div>
+
+<div class="card">
+  <h2>18. Kubernetes Deployment</h2>
+
+  <h3>Recommended Resources</h3>
+
+  <ul>
+    <li>Deployment: frontend-web</li>
+    <li>Service: ClusterIP</li>
+    <li>Ingress: frontend.company.com</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>19. CI/CD Pipeline</h2>
+
+  <h3>Recommended Pipeline</h3>
+
+  <pre><code>1. Download OpenAPI specs
+2. Generate API client
+3. Run lint
+4. Run test
+5. Build frontend
+6. Build Docker image
+7. Push registry
+8. Deploy Kubernetes</code></pre>
+
+  <div class="note">
+    Frontend pipelines should automatically regenerate API clients to ensure backend/frontend contract synchronization.
+  </div>
+</div>
+
+<div class="card">
+  <h2>20. Best Practices</h2>
+
+  <h3>20.1 Commit OpenAPI JSON into Git</h3>
+
+  <ul>
+    <li>Track API changes</li>
+    <li>Support reproducible builds</li>
+    <li>Stabilize CI/CD pipelines</li>
+  </ul>
+
+  <h3>20.2 Commit Generated API Code</h3>
+
+  <ul>
+    <li>Frontend builds become independent from backend runtime</li>
+    <li>CI pipelines become more stable</li>
+    <li>Debugging becomes easier</li>
+  </ul>
+
+  <h3>20.3 Backend must define operationId clearly</h3>
+
+  <pre><code>@Operation(operationId = "getUsers")</code></pre>
+
+  <p>Avoid generated names like:</p>
+
+  <pre><code>usersControllerGet</code></pre>
+
+  <h3>20.4 Do not expose Entity objects directly</h3>
+
+  <p>
+    Backend services should expose DTOs instead of JPA entities.
+  </p>
+</div>
+
+<div class="card">
+  <h2>21. Recommended Development Workflow</h2>
+
+  <h3>Backend Developer</h3>
+
+  <pre><code>Update API
+-> Generate OpenAPI
+-> Commit OpenAPI artifact</code></pre>
+
+  <h3>Frontend Developer</h3>
+
+  <pre><code>Pull latest changes
+-> Download OpenAPI
+-> Generate API client
+-> Build feature</code></pre>
+</div>
+
+<div class="card">
+  <h2>22. Conclusion</h2>
+
+  <p>
+    This frontend architecture is designed for enterprise microservice systems
+    running on Kubernetes with API Gateway and centralized authentication.
+  </p>
+
+  <p>
+    The architecture is fully typed, scalable, CI/CD friendly,
+    and optimized for long-term maintainability.
+  </p>
+
+  <div class="note">
+    Particularly suitable for:
+
+    <ul>
+      <li>Spring Boot microservices</li>
+      <li>API Gateway architectures</li>
+      <li>Keycloak authentication</li>
+      <li>Kubernetes platforms</li>
+      <li>Enterprise React applications</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  Generated from React frontend architecture documentation and OpenAPI integration notes.
+</footer>
+
+</body>
+</html>

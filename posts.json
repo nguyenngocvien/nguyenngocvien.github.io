@@ -13,5 +13,10 @@
         "title": "CI/CD with Docker Hub and ArgoCD",
         "url": "posts/ci-cd-dockerhub-argocd-blog.html",
         "description": "A guide to building a GitOps-based CI/CD pipeline with Docker Hub and ArgoCD."
+    },
+	{
+        "title": "Launching a Frontend Project from Scratch",
+        "url": "posts/frontend-project-from-scratch.html",
+        "description": "A technical note on planning, scaffolding, and shipping a modern frontend project from the ground up."
     }
 ]
