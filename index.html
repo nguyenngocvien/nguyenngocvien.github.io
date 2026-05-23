@@ -21,11 +21,135 @@
       html {
         scroll-behavior: smooth;
       }
+
+      body.dark-shell {
+        background:
+          radial-gradient(circle at top, rgba(59, 130, 246, 0.18), transparent 28%),
+          radial-gradient(circle at right, rgba(14, 165, 233, 0.12), transparent 26%),
+          linear-gradient(180deg, #050816 0%, #0b1020 100%);
+        color: #e5eefc;
+      }
+
+      body.dark-shell header,
+      body.dark-shell footer,
+      body.dark-shell section.bg-white,
+      body.dark-shell section.bg-gray-50,
+      body.dark-shell section.bg-gray-100,
+      body.dark-shell .bg-white,
+      body.dark-shell .bg-gray-50,
+      body.dark-shell .bg-gray-100,
+      body.dark-shell .bg-blue-50 {
+        background-color: rgba(10, 15, 28, 0.82) !important;
+        color: #e5eefc !important;
+      }
+
+      body.dark-shell header {
+        border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+        backdrop-filter: blur(16px);
+      }
+
+      body.dark-shell footer {
+        border-top-color: rgba(148, 163, 184, 0.18) !important;
+      }
+
+      body.dark-shell .shadow-md,
+      body.dark-shell .shadow-lg,
+      body.dark-shell .shadow-xl,
+      body.dark-shell .shadow-2xl {
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35) !important;
+      }
+
+      body.dark-shell .text-gray-900,
+      body.dark-shell .text-gray-800 {
+        color: #f8fafc !important;
+      }
+
+      body.dark-shell .text-gray-700 {
+        color: #cbd5e1 !important;
+      }
+
+      body.dark-shell .text-gray-600,
+      body.dark-shell .text-gray-500 {
+        color: #94a3b8 !important;
+      }
+
+      body.dark-shell .text-blue-600,
+      body.dark-shell .text-blue-700,
+      body.dark-shell .text-blue-500 {
+        color: #7dd3fc !important;
+      }
+
+      body.dark-shell a {
+        color: inherit;
+      }
+
+      body.dark-shell a:hover {
+        color: #38bdf8 !important;
+      }
+
+      body.dark-shell .bg-blue-600 {
+        background: linear-gradient(135deg, #0f172a 0%, #2563eb 50%, #06b6d4 100%) !important;
+      }
+
+      body.dark-shell .hover\:bg-blue-700:hover {
+        background-color: #1d4ed8 !important;
+      }
+
+      body.dark-shell input {
+        background: rgba(15, 23, 42, 0.95) !important;
+        border-color: rgba(148, 163, 184, 0.22) !important;
+        color: #e2e8f0 !important;
+      }
+
+      body.dark-shell input::placeholder {
+        color: #64748b !important;
+      }
+
+      body.dark-shell .bg-white.rounded-xl,
+      body.dark-shell .bg-white.rounded-lg,
+      body.dark-shell .bg-white.rounded-md,
+      body.dark-shell .bg-white.p-6,
+      body.dark-shell .bg-white.p-8,
+      body.dark-shell article.bg-white {
+        background: rgba(15, 23, 42, 0.88) !important;
+        border: 1px solid rgba(148, 163, 184, 0.14);
+      }
+
+      body.dark-shell .hover\:bg-blue-50:hover {
+        background-color: rgba(30, 41, 59, 0.9) !important;
+      }
+
+      body.dark-shell .border-gray-300,
+      body.dark-shell .border-t {
+        border-color: rgba(148, 163, 184, 0.16) !important;
+      }
+
+      body.dark-shell .bg-gray-50 {
+        background-color: rgba(10, 15, 28, 0.96) !important;
+      }
+
+      body.dark-shell .bg-blue-50 {
+        background-color: rgba(10, 25, 45, 0.92) !important;
+      }
+
+      body.dark-shell .bg-gradient-to-r {
+        background-image: linear-gradient(
+          135deg,
+          rgba(10, 15, 28, 0.98) 0%,
+          rgba(15, 23, 42, 0.96) 100%
+        ) !important;
+      }
+
+      .glass {
+        background: rgba(10, 15, 28, 0.82);
+        border: 1px solid rgba(148, 163, 184, 0.14);
+        backdrop-filter: blur(16px);
+      }
     </style>
   </head>
 
   <body
-    class="bg-gradient-to-b from-white via-blue-50 to-white text-gray-800 font-sans scroll-smooth"
+    class="dark-shell bg-gradient-to-b from-white via-blue-50 to-white text-gray-800 font-sans scroll-smooth"
   >
     <!-- Top Bar -->
     <header class="bg-white shadow-md fixed w-full z-50">
@@ -342,44 +466,81 @@
       AOS.init({ duration: 1000 });
     </script>
     <script>
-      fetch("posts.json")
-        .then((res) => res.json())
-        .then((posts) => {
-          const container = document.getElementById("blog-list");
+      const fallbackPosts = [
+        {
+          title: "How to Change SMTP Password in Postfix",
+          description:
+            "A practical guide for updating the SMTP password used by Postfix.",
+          url: "posts/how-to-change-password-smtp-postfix.html",
+          accent: "SMTP / Postfix",
+        },
+        {
+          title: "Setting Up Trust Between WebSphere Servers with Retrieve from Port",
+          description:
+            "Import a certificate from a remote SSL port into a WebSphere TrustStore.",
+          url: "posts/setup-trust-server-by-retreive-from-port/index.html",
+          accent: "WebSphere / SSL",
+        },
+        {
+          title: "CI/CD with Docker Hub and ArgoCD",
+          description:
+            "A guide to building a GitOps-based CI/CD pipeline with Docker Hub and ArgoCD.",
+          url: "posts/ci-cd-dockerhub-argocd-blog.html",
+          accent: "DevOps / GitOps",
+        },
+      ];
 
-          posts.forEach((post) => {
-            const article = document.createElement("article");
+      const container = document.getElementById("blog-list");
 
-            article.className =
-              "bg-white rounded-md shadow-md flex flex-col sm:flex-row overflow-hidden";
+      function renderPosts(posts) {
+        container.innerHTML = "";
 
-            article.innerHTML = `
-              <img src="${post.image}" 
-                    alt="Post Image"
-                    class="w-full sm:w-64 object-cover rounded-t-xl sm:rounded-l-xl" />
-      
-              <div class="p-6 flex flex-col justify-between space-y-4">
-                <div>
-                  <h2 class="text-2xl font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
-                    ${post.title}
-                  </h2>
-      
-                  <p class="text-gray-700 line-clamp-3">
-                    ${post.description}
-                  </p>
-                </div>
-      
-                <a href="${post.url}"
-                    class="text-blue-600 hover:text-blue-800 hover:underline self-start transition-all">
-                    Read more →
-                </a>
+        posts.forEach((post) => {
+          const article = document.createElement("article");
+
+          article.className =
+            "glass rounded-2xl shadow-2xl overflow-hidden border border-slate-800/70";
+
+          article.innerHTML = `
+            <div class="p-6 sm:p-8">
+              <div class="flex items-center justify-between gap-4 mb-4">
+                <span class="inline-flex items-center rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-semibold tracking-[0.2em] text-cyan-300 ring-1 ring-cyan-400/20">
+                  ${post.accent || "Technical note"}
+                </span>
+                <span class="text-xs text-slate-500">Technical note</span>
               </div>
-            `;
 
-            container.appendChild(article);
-          });
+              <h2 class="text-2xl font-bold text-slate-50 mb-3 hover:text-cyan-300 transition-colors">
+                ${post.title}
+              </h2>
+
+              <p class="text-slate-400 leading-7 mb-6">
+                ${post.description}
+              </p>
+
+              <a href="${post.url}"
+                 class="inline-flex items-center rounded-full bg-cyan-500/10 px-4 py-2 text-cyan-300 ring-1 ring-cyan-400/30 hover:bg-cyan-500/20 hover:text-cyan-200 transition-all">
+                Read more
+              </a>
+            </div>
+          `;
+
+          container.appendChild(article);
+        });
+      }
+
+      fetch("posts.json")
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`posts.json returned ${res.status}`);
+          }
+          return res.json();
         })
-        .catch((error) => console.error("Error loading posts:", error));
+        .then(renderPosts)
+        .catch((error) => {
+          console.warn("Falling back to embedded posts list:", error);
+          renderPosts(fallbackPosts);
+        });
     </script>
   </body>
 </html>

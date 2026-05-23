@@ -1,13 +1,13 @@
 [
 	{
-        "title": "SMTP Postfix",
+        "title": "How to Change SMTP Password in Postfix",
         "url": "posts/how-to-change-password-smtp-postfix.html",
-        "description": "HÆ°á»›ng dáº«n Ä‘á»•i máº­t kháº©u SMTP."
+        "description": "A practical guide for updating the SMTP password used by Postfix."
     },
 	{
-        "title": "Thiáº¿t láº­p Trust giá»¯a cÃ¡c Server trong WebSphere báº±ng Retrieve from Port",
+        "title": "Setting Up Trust Between WebSphere Servers with Retrieve from Port",
         "url": "posts/setup-trust-server-by-retreive-from-port/index.html",
-        "description": "Chuáº©n hÃ³a cÃ¡c bÆ°á»›c cáº¥u hÃ¬nh tin cáº­y (trust) giá»¯a cÃ¡c mÃ¡y chá»§ sá»­ dá»¥ng WebSphere Application Server (WAS) thÃ´ng qua tÃ­nh nÄƒng Retrieve from Port nháº±m Ä‘áº£m báº£o káº¿t ná»‘i báº£o má­t SSL/TLS giá»¯a cÃ¡c há»‡ thá»‘ng."
+        "description": "Import a certificate from a remote SSL port into a WebSphere TrustStore."
     },
 	{
         "title": "CI/CD with Docker Hub and ArgoCD",
