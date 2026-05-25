@@ -516,23 +516,71 @@ export const customInstance = async &lt;T&gt;(
 
   <pre><code>npm install @tanstack/react-query</code></pre>
 
-  <h3>Setup</h3>
+  <h3>Centralized Query Client</h3>
 
-  <pre><code>const queryClient = new QueryClient();
+  <p>
+    Added a centralized query client in <code>src/lib/queryClient.ts</code>.
+  </p>
+
+  <pre><code>import { QueryClient } from '@tanstack/react-query';
+
+export const DEFAULT_STALE_TIME = 60 * 1000;
+export const DEFAULT_CACHE_TIME = 5 * 60 * 1000;
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: DEFAULT_STALE_TIME,
+      gcTime: DEFAULT_CACHE_TIME,
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+    mutations: {
+      retry: 0,
+    },
+  },
+});</code></pre>
+
+  <h3>App Provider Setup</h3>
+
+  <p>
+    Wrapped the app with <code>QueryClientProvider</code> in <code>src/main.tsx</code>.
+  </p>
+
+  <pre><code>import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { NotificationProvider } from './components/ui/NotificationProvider';
+import { queryClient } from './lib/queryClient';
+import './index.css';
+import { AuthProvider } from './hooks/useAuth';
 
 &lt;QueryClientProvider client={queryClient}&gt;
-  &lt;App /&gt;
-&lt;/QueryClientProvider&gt;</code></pre>
+  &lt;BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}&gt;
+    &lt;AuthProvider&gt;
+    &lt;/AuthProvider&gt;
+  &lt;/BrowserRouter&gt;
+&lt;/QueryClientProvider&gt;
+);</code></pre>
 
-  <h3>Benefits</h3>
+  <h3>Shared Service Hooks</h3>
+
+  <p>
+    Kept the existing service hooks working with the shared config in
+    <code>src/hooks/useServiceConfigQueries.ts</code>.
+  </p>
+
+  <h3>What the Setup Gives You</h3>
 
   <ul>
-    <li>Caching</li>
-    <li>Automatic refetch</li>
-    <li>Loading state handling</li>
-    <li>Retry support</li>
-    <li>Pagination</li>
-    <li>Optimistic update</li>
+    <li>One shared <code>queryClient</code> instance for the whole app</li>
+    <li>Default query settings: <code>staleTime: 60s</code></li>
+    <li><code>gcTime: 5min</code></li>
+    <li><code>refetchOnWindowFocus: false</code></li>
+    <li><code>retry: 1</code> for queries</li>
+    <li><code>retry: 0</code> for mutations</li>
   </ul>
 </div>
 
@@ -542,6 +590,57 @@ export const customInstance = async &lt;T&gt;(
   <h3>Recommended Tool</h3>
 
   <pre><code>Zustand</code></pre>
+
+  <h3>Added Stores</h3>
+
+  <p>
+    The architecture now keeps client-side state in dedicated Zustand stores:
+  </p>
+
+  <ul>
+    <li>
+      <code>src/stores/authStore.ts</code> for authentication session state
+    </li>
+    <li>
+      <code>src/stores/uiStore.ts</code> for theme, sidebar, and notification state
+    </li>
+  </ul>
+
+  <h3>Auth Store Responsibilities</h3>
+
+  <ul>
+    <li>Persist the authenticated session in local storage</li>
+    <li>Expose helpers to read the stored session, access token, and user</li>
+    <li>Track hydration so the app can wait for rehydration before rendering auth-dependent UI</li>
+  </ul>
+
+  <h3>UI Store Responsibilities</h3>
+
+  <ul>
+    <li>Persist theme and sidebar collapse preferences</li>
+    <li>Manage in-memory notifications with add and dismiss actions</li>
+    <li>Keep theme, sidebar, and notification behavior out of component-local state</li>
+  </ul>
+
+  <h3>Refactored Integrations</h3>
+
+  <ul>
+    <li>
+      <code>src/hooks/useAuth.tsx</code> now reads auth state from Zustand instead of the old context-driven state
+    </li>
+    <li>
+      <code>src/components/layout/AppShell.tsx</code> now uses Zustand for theme selection
+    </li>
+    <li>
+      <code>src/components/layout/Sidebar.tsx</code> now uses Zustand for sidebar collapse and theme toggles
+    </li>
+    <li>
+      <code>src/components/ui/NotificationProvider.tsx</code> now reads notifications from Zustand
+    </li>
+    <li>
+      <code>src/lib/keycloak.ts</code> and <code>src/lib/http.ts</code> now consume the stored auth session and access token from Zustand-backed state
+    </li>
+  </ul>
 
   <h3>Use Zustand for</h3>
 
